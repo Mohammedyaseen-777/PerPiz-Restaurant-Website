@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Complete PerPiz menu with pizzas, burgers, tacos, pasta, fries, garlic bread, dips, desserts, slices, crusts and addons.">
+<title>PerPiz — Full Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/jpeg" href="assets/perpiz-logo.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.full-menu-page{padding:55px 0}.menu-hero{background:#201914;color:#fff;border-radius:28px;padding:38px;margin-bottom:35px;display:flex;justify-content:space-between;gap:25px;align-items:center}.menu-hero h1{font:800 48px "Playfair Display";margin:8px 0}.menu-hero p{color:#d8cbc1;max-width:680px}.print-btn{white-space:nowrap}
+.full-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}.full-table th{background:#201914;color:#fff;text-align:left;padding:14px}.full-table td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}.full-table tr:last-child td{border:0}.section-row td{background:#fff1df;color:#9b5a00;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.menu-notes{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:25px}.menu-notes h3{font:700 25px "Playfair Display"}.menu-notes li{margin:8px 0;color:var(--muted)}
+@media(max-width:650px){.menu-hero{display:block}.menu-hero h1{font-size:38px}.print-btn{margin-top:15px;width:100%}.full-table{font-size:12px}.full-table th,.full-table td{padding:10px 8px}}
+@media print{.site-header,.announcement,.menu-hero .btn,.menu-notes,.print-btn{display:none!important}.full-menu-page{padding:0}.full-table{border:0}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="announcement">🍕 ALWAYS FRESH • ALWAYS CRISP &nbsp;|&nbsp; 5% GST applicable on all items</div>
+<header class="site-header"><div class="container nav-wrap">
+<a class="brand" href="index.html"><img src="assets/perpiz-logo.jpg" alt="PerPiz logo"><div><strong>PerPiz</strong><span>The Perfect Pizza</span></div></a>
+<nav class="nav-links" style="display:flex"><a href="index.html#menu">Home</a><a href="index.html#bestsellers">Best Sellers</a><a href="index.html#branches">Branches</a></nav>
+</div></header>
+<main class="full-menu-page"><div class="container">
+<div class="menu-hero"><div><span class="eyebrow" style="color:#ffcc72">COMPLETE MENU</span><h1>PerPiz Menu</h1><p>The Perfect Pizza — plus tacos, fries, burgers, garlic bread, pasta, dips, desserts, slices, crusts and addons.</p></div><button class="btn btn-primary print-btn" onclick="window.print()">Print / Save as PDF</button></div>
+<div id="fullMenu"></div>
+<div class="menu-notes"><h3>PerPiz notes</h3><ul><li>5% GST applicable on all items.</li><li>Orders placed cannot be cancelled.</li><li>Maintain peace after your order is placed.</li><li>The variety that is present will be found.</li><li>Tell your suggestions at the counter.</li></ul><h3>Branches</h3><p><b>Al-Burooj Store:</b> 12 PM–12 AM • Now Delivering Too! • +91 73831 86877</p><p><b>Sonal Store:</b> 5 PM–3 AM • For All You Late-Night Foodies! • +91 73836 86877 / +91 73835 26877</p></div>
+</div></main>
+<script src="script.js"></script>
+<script>
+const grouped={};menu.forEach(x=>(grouped[x.cat]??=[]).push(x));
+let html='<table class="full-table"><thead><tr><th>Category / Item</th><th>Price / Options</th><th>Description</th></tr></thead><tbody>';
+for(const [cat,items] of Object.entries(grouped)){
+ html+=`<tr class="section-row"><td colspan="3">${cat}</td></tr>`;
+ items.forEach(x=>{const prices=Object.entries(x.prices).map(([k,v])=>`${k}: ₹${v}`).join(" • ");html+=`<tr><td><b>${x.name}</b>${x.badge?`<br><span class="badge ${x.badge==="BEST SELLER"?"badge-red":""}">${x.badge}</span>`:""}</td><td>${prices}</td><td>${x.desc||"—"}</td></tr>`})
+}
+html+='</tbody></table>';document.getElementById("fullMenu").innerHTML=html;
+</script>
+</body>
+</html>
